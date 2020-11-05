@@ -21,7 +21,7 @@ function doPost(e) {
     //filter data
     var filteredData = filterCovid19Data(userMessage, prefectures);
     if (filteredData) {
-      var {formattedTarget, date, tested, testedPositive} = filterCovid19Data(userMessage, prefectures);
+      var {formattedTarget, date, tested, testedPositive} = filteredData;
       var message = `【${formattedTarget} test results】\n [${date}] \n New Tests: ${tested} \n New Positives: ${testedPositive} `;
     } else {
       var message = `${userMessage} is not found. Please check your message if it is correct. \n ex) Tokyo`;
@@ -53,7 +53,7 @@ function getCovid19Data() {
 }
 
 function filterCovid19Data(userMessage, prefectures) {
-  var target = userMessage;
+  var target = userMessage.trim();
   var formattedTarget = target.charAt(0).toUpperCase() + target.slice(1);
   var targetData = prefectures.filter(i => i[4] === formattedTarget);
   
